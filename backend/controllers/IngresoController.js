@@ -4,7 +4,7 @@
 
 const IngresoService = require("../services/IngresoService");
 const Response = require("../utils/response");
-
+const ValidationError = require("../errors/ValidationError");
 
 // ============================
 // MÉTODOS
@@ -33,15 +33,14 @@ const obtenerIngresos = async (req, res) => {
 
     } catch (error) {
 
-        // Respuesta de error
-        Response.error(
-            res,
-            500,
-            "Error al obtener los ingresos",
-            error.message
-        );
+    Response.error(
+        res,
+        500,
+        "Error interno del servidor",
+        error.message
+    );
 
-    }
+}
 
 };
 
@@ -74,15 +73,26 @@ const crearIngreso = async (req, res) => {
 
     } catch (error) {
 
-        // Respuesta de error
-        Response.error(
+    // Error de validación
+    if (error instanceof ValidationError) {
+
+        return Response.error(
             res,
-            500,
-            "Error al registrar el ingreso",
+            error.statusCode,
             error.message
         );
 
     }
+
+    // Error interno del servidor
+    Response.error(
+        res,
+        500,
+        "Error interno del servidor",
+        error.message
+    );
+
+}
 
 };
 

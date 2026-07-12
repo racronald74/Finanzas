@@ -3,6 +3,8 @@
 // ============================
 
 const IngresoModel = require("../models/IngresoModel");
+const IngresoValidator = require("../validators/IngresoValidator");
+const ValidationError = require("../errors/ValidationError");
 
 
 // ============================
@@ -29,6 +31,15 @@ const obtenerIngresos = async () => {
  */
 const crearIngreso = async (ingreso) => {
 
+   // Validar la información del ingreso
+const error = IngresoValidator.validarIngreso(ingreso);
+
+// Si existe un error de validación, lanzar una excepción personalizada
+if (error) {
+    throw new ValidationError(error);
+}
+
+    // Registrar el ingreso
     return await IngresoModel.crearIngreso(ingreso);
 
 };
