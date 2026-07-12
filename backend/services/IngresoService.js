@@ -1,14 +1,44 @@
+// ============================
+// IMPORTACIONES
+// ============================
+
 const IngresoModel = require("../models/IngresoModel");
-//Modelo para obtener todos los ingresos
-const obtenerIngresos = (callback) => {
-  IngresoModel.obtenerIngresos(callback);
+
+
+// ============================
+// MÉTODOS
+// ============================
+
+/**
+ * Obtiene todos los ingresos registrados.
+ *
+ * @returns {Promise<Array>}
+ */
+const obtenerIngresos = async () => {
+
+    return await IngresoModel.obtenerIngresos();
+
 };
-//Modelo para crear un nuevo ingreso
-const crearIngreso = (ingreso, callback) => {
-  IngresoModel.crearIngreso(ingreso, callback);
+
+
+/**
+ * Registra un nuevo ingreso.
+ *
+ * @param {Object} ingreso Información del ingreso.
+ * @returns {Promise<Object>}
+ */
+const crearIngreso = async (ingreso) => {
+
+    return await IngresoModel.crearIngreso(ingreso);
+
 };
-//Exportar las funciones del servicio
+
+
+// ============================
+// EXPORTACIONES
+// ============================
+
 module.exports = {
-  obtenerIngresos,
-  crearIngreso,
+    obtenerIngresos,
+    crearIngreso
 };

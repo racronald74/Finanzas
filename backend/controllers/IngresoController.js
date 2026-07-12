@@ -1,62 +1,68 @@
-// Controlador para manejar las operaciones relacionadas con los ingresos
+// ============================
+// IMPORTACIONES
+// ============================
+
 const IngresoService = require("../services/IngresoService");
 const Response = require("../utils/response");
+
+
+// ============================
+// MÉTODOS
+// ============================
+
 /**
  * Obtiene todos los ingresos registrados.
  *
  * @param {Object} req Objeto de la petición HTTP.
  * @param {Object} res Objeto de la respuesta HTTP.
  */
-const obtenerIngresos = (req, res) => {
+const obtenerIngresos = async (req, res) => {
 
-    IngresoService.obtenerIngresos((error, resultados) => {
+    try {
 
-        // Error al consultar la base de datos
-        if (error) {
-            return Response.error(
-                res,
-                500,
-                "Error al obtener los ingresos",
-                error.message
-            );
-        }
+        // Obtiene los ingresos desde el servicio
+        const ingresos = await IngresoService.obtenerIngresos();
 
         // Respuesta exitosa
         Response.success(
             res,
             200,
             "Ingresos obtenidos correctamente",
-            resultados
+            ingresos
         );
 
-    });
+    } catch (error) {
+
+        // Respuesta de error
+        Response.error(
+            res,
+            500,
+            "Error al obtener los ingresos",
+            error.message
+        );
+
+    }
 
 };
-/**
+
+
 /**
  * Registra un nuevo ingreso.
  *
  * @param {Object} req Objeto de la petición HTTP.
  * @param {Object} res Objeto de la respuesta HTTP.
  */
-const crearIngreso = (req, res) => {
+const crearIngreso = async (req, res) => {
 
-    // Datos enviados por el cliente
-    const ingreso = req.body;
+    try {
 
-    IngresoService.crearIngreso(ingreso, (error, resultado) => {
+        // Datos enviados por el cliente
+        const ingreso = req.body;
 
-        // Error al registrar
-        if (error) {
-            return Response.error(
-                res,
-                500,
-                "Error al registrar el ingreso",
-                error.message
-            );
-        }
+        // Registra el ingreso
+        const resultado = await IngresoService.crearIngreso(ingreso);
 
-        // Registro exitoso
+        // Respuesta exitosa
         Response.success(
             res,
             201,
@@ -66,11 +72,26 @@ const crearIngreso = (req, res) => {
             }
         );
 
-    });
+    } catch (error) {
+
+        // Respuesta de error
+        Response.error(
+            res,
+            500,
+            "Error al registrar el ingreso",
+            error.message
+        );
+
+    }
 
 };
-// Exporta los métodos del controlador para que puedan ser utilizados en otras partes de la aplicación
+
+
+// ============================
+// EXPORTACIONES
+// ============================
+
 module.exports = {
-  obtenerIngresos,
-  crearIngreso
+    obtenerIngresos,
+    crearIngreso
 };
