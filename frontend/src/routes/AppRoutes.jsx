@@ -23,6 +23,7 @@ const AppRoutes = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/ingresos" element={<ListaIngresos />} />
                 <Route path="/ingresos/nuevo" element={<FormularioIngreso />} />
+                <Route path="/ingresos/editar/:id" element={<FormularioIngreso />}/>
             </Routes>
         </BrowserRouter>
     );

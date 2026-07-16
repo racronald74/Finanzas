@@ -2,9 +2,13 @@
 // IMPORTACIONES
 // ============================
 
-import { useState } from "react";
-import { crearIngreso } from "../services/ingresoService";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import {
+    crearIngreso,
+    actualizarIngreso
+} from "../services/ingresoService";
 
 
 // ============================
@@ -13,115 +17,162 @@ import { useNavigate } from "react-router-dom";
 
 /**
  * Formulario para registrar o editar un ingreso.
+ *
+ * @param {Object} props
+ * @param {Object|null} props.ingreso Datos del ingreso cuando se edita.
  */
-const IngresoForm = () => {
+const IngresoForm = ({ ingreso }) => {
+
+    const navigate = useNavigate();
 
     // Estado del formulario
-    const [ingreso, setIngreso] = useState({
+    const [formulario, setFormulario] = useState({
         fecha: "",
         descripcion: "",
         monto: "",
         categoria: ""
     });
 
-    const navigate = useNavigate();
+    /**
+     * Carga la información cuando se está editando.
+     */
+    useEffect(() => {
+
+        if (ingreso) {
+
+            setFormulario({
+                fecha: ingreso.fecha
+                    ? ingreso.fecha.substring(0, 10)
+                    : "",
+                descripcion: ingreso.descripcion,
+                monto: ingreso.monto,
+                categoria: ingreso.categoria
+            });
+
+        }
+
+    }, [ingreso]);
 
     /**
-     * Actualiza el estado cuando cambia un campo.
+     * Actualiza el estado del formulario.
      */
     const handleChange = (event) => {
 
         const { name, value } = event.target;
 
-        setIngreso({
-            ...ingreso,
+        setFormulario({
+            ...formulario,
             [name]: value
         });
 
     };
 
-/**
- * Envía el formulario.
- */
-const handleSubmit = async (event) => {
+    /**
+     * Envía el formulario.
+     */
+    const handleSubmit = async (event) => {
 
-    event.preventDefault();
+        event.preventDefault();
 
-    try {
+        try {
 
-        // Registrar el ingreso
-        await crearIngreso(ingreso);
+            if (ingreso) {
 
-        // Informar al usuario
-        alert("Ingreso registrado correctamente.");
+                // Actualizar
+                await actualizarIngreso(
+                    ingreso.id,
+                    formulario
+                );
 
-// Regresar al listado
-navigate("/ingresos");
+                alert("Ingreso actualizado correctamente.");
 
-    } catch (error) {
+            } else {
 
-        console.error(error);
+                // Crear
+                await crearIngreso(formulario);
 
-        alert("Ocurrió un error al registrar el ingreso.");
+                alert("Ingreso registrado correctamente.");
 
-    }
+            }
 
-};
+            navigate("/ingresos");
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert("Ocurrió un error.");
+
+        }
+
+    };
 
     return (
 
         <form onSubmit={handleSubmit}>
 
             <div>
+
                 <label>Fecha</label><br />
+
                 <input
                     type="date"
                     name="fecha"
-                    value={ingreso.fecha}
+                    value={formulario.fecha}
                     onChange={handleChange}
                 />
+
             </div>
 
             <br />
 
             <div>
+
                 <label>Descripción</label><br />
+
                 <input
                     type="text"
                     name="descripcion"
-                    value={ingreso.descripcion}
+                    value={formulario.descripcion}
                     onChange={handleChange}
                 />
+
             </div>
 
             <br />
 
             <div>
+
                 <label>Monto</label><br />
+
                 <input
                     type="number"
                     name="monto"
-                    value={ingreso.monto}
+                    value={formulario.monto}
                     onChange={handleChange}
                 />
+
             </div>
 
             <br />
 
             <div>
+
                 <label>Categoría</label><br />
+
                 <input
                     type="text"
                     name="categoria"
-                    value={ingreso.categoria}
+                    value={formulario.categoria}
                     onChange={handleChange}
                 />
+
             </div>
 
             <br />
 
             <button type="submit">
-                Guardar
+                {ingreso ? "Actualizar" : "Guardar"}
             </button>
 
         </form>

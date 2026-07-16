@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 // ============================
 // COMPONENTE TABLA DE INGRESOS
 // ============================
@@ -46,7 +48,16 @@ const TablaIngresos = ({ ingresos, onEliminar }) => {
                             <td>{ingreso.descripcion}</td>
                             <td>{ingreso.monto}</td>
                             <td>{ingreso.categoria}</td>
-                            <td>
+
+<td>
+
+    <Link to={`/ingresos/editar/${ingreso.id}`}>
+        <button>
+            Editar
+        </button>
+    </Link>
+
+    {" "}
 
     <button
         onClick={() => onEliminar(ingreso.id)}
