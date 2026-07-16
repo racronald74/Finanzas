@@ -1,6 +1,4 @@
-// ============================
 // CLASE DE ERROR DE VALIDACIÓN
-// ============================
 
 /**
  * Representa un error causado por datos inválidos
@@ -25,8 +23,6 @@ class ValidationError extends Error {
 }
 
 
-// ============================
 // EXPORTACIONES
-// ============================
 
 module.exports = ValidationError;

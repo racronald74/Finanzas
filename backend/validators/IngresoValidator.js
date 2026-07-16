@@ -1,6 +1,4 @@
-// ============================
 // MÉTODOS
-// ============================
 
 /**
  * Valida la información de un ingreso.
@@ -46,11 +44,7 @@ const validarIngreso = (ingreso) => {
 
 };
 
-
-// ============================
 // EXPORTACIONES
-// ============================
-
 module.exports = {
     validarIngreso
 };

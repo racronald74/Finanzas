@@ -22,9 +22,7 @@ res.json({
 
 const PORT = process.env.PORT || 3000;
 
-// ============================
 // VERIFICAR CONEXIÓN A MYSQL
-// ============================
 
 /**
  * Verifica que la conexión con la base de datos

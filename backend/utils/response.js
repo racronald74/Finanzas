@@ -1,6 +1,4 @@
-// ============================
 // RESPUESTAS EXITOSAS
-// ============================
 
 /**
  * Envía una respuesta exitosa.
@@ -18,10 +16,7 @@ const success = (res, status, message, data = null) => {
     });
 };
 
-
-// ============================
 // RESPUESTAS DE ERROR
-// ============================
 
 /**
  * Envía una respuesta de error.
@@ -39,11 +34,7 @@ const error = (res, status, message, error = null) => {
     });
 };
 
-
-// ============================
 // EXPORTACIONES
-// ============================
-
 module.exports = {
     success,
     error

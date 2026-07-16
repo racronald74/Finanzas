@@ -1,14 +1,8 @@
-// ============================
 // IMPORTACIONES
-// ============================
-
 const mysql = require("mysql2/promise");
 require("dotenv").config();
 
-
-// ============================
 // CONEXIÓN A LA BASE DE DATOS
-// ============================
 
 /**
  * Pool de conexiones a MySQL.
@@ -28,9 +22,5 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
-
-// ============================
 // EXPORTACIONES
-// ============================
-
 module.exports = pool;
