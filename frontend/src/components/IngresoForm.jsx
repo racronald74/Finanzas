@@ -4,6 +4,7 @@
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import {
     crearIngreso,
@@ -53,6 +54,7 @@ const IngresoForm = ({ ingreso }) => {
 
     }, [ingreso]);
 
+
     /**
      * Actualiza el estado del formulario.
      */
@@ -84,24 +86,28 @@ const IngresoForm = ({ ingreso }) => {
                     formulario
                 );
 
-                alert("Ingreso actualizado correctamente.");
+                toast.success("Ingreso actualizado correctamente.");
 
             } else {
 
                 // Crear
                 await crearIngreso(formulario);
 
-                alert("Ingreso registrado correctamente.");
+                toast.success("Ingreso registrado correctamente.");
 
             }
 
-            navigate("/ingresos");
+    setTimeout(() => {
+
+    navigate("/ingresos");
+
+}, 1500);
 
         } catch (error) {
 
             console.error(error);
 
-            alert("Ocurrió un error.");
+            toast.error("Ocurrió un error.");
 
         }
 
@@ -109,24 +115,28 @@ const IngresoForm = ({ ingreso }) => {
 
     return (
 
-        <form onSubmit={handleSubmit}>
+        <>
+        <form
+    className="form-container"
+    onSubmit={handleSubmit}
+>
 
-            <div>
+            <div className="form-group">
 
-                <label>Fecha</label><br />
+    <label>Fecha</label>
 
-                <input
-                    type="date"
-                    name="fecha"
-                    value={formulario.fecha}
-                    onChange={handleChange}
-                />
+    <input
+        type="date"
+        name="fecha"
+        value={formulario.fecha}
+        onChange={handleChange}
+    />
 
-            </div>
+</div>
 
             <br />
 
-            <div>
+            <div className="form-group">
 
                 <label>Descripción</label><br />
 
@@ -141,7 +151,7 @@ const IngresoForm = ({ ingreso }) => {
 
             <br />
 
-            <div>
+            <div className="form-group">
 
                 <label>Monto</label><br />
 
@@ -156,7 +166,7 @@ const IngresoForm = ({ ingreso }) => {
 
             <br />
 
-            <div>
+            <div className="form-group">
 
                 <label>Categoría</label><br />
 
@@ -171,11 +181,16 @@ const IngresoForm = ({ ingreso }) => {
 
             <br />
 
-            <button type="submit">
+            <button
+    className="btn-guardar"
+    type="submit"
+>
                 {ingreso ? "Actualizar" : "Guardar"}
             </button>
 
         </form>
+        
+        </>
 
     );
 

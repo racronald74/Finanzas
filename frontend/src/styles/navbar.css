@@ -1,0 +1,37 @@
+/* ===========================
+   NAVBAR
+=========================== */
+
+nav {
+    background-color: #1f3c88;
+    color: white;
+    padding: 15px 40px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav h2 {
+    font-size: 24px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+nav li a {
+
+    color: white;
+    font-weight: bold;
+    transition: 0.3s;
+
+}
+
+nav li a:hover {
+
+    color: #ffd166;
+
+}

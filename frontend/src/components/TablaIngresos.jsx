@@ -14,7 +14,7 @@ const TablaIngresos = ({ ingresos, onEliminar }) => {
 
     return (
 
-        <table border="1" cellPadding="8">
+        <table>
 
             <thead>
                 <tr>
@@ -44,7 +44,7 @@ const TablaIngresos = ({ ingresos, onEliminar }) => {
                         <tr key={ingreso.id}>
 
                             <td>{ingreso.id}</td>
-                            <td>{ingreso.fecha}</td>
+                            <td>{ingreso.fecha ? ingreso.fecha.substring(0, 10) : ""}</td>
                             <td>{ingreso.descripcion}</td>
                             <td>{ingreso.monto}</td>
                             <td>{ingreso.categoria}</td>
@@ -52,16 +52,17 @@ const TablaIngresos = ({ ingresos, onEliminar }) => {
 <td>
 
     <Link to={`/ingresos/editar/${ingreso.id}`}>
-        <button>
-            Editar
-        </button>
+    <button className="btn-editar">
+    Editar
+    </button>
     </Link>
 
     {" "}
 
     <button
-        onClick={() => onEliminar(ingreso.id)}
-    >
+    className="btn-eliminar"
+    onClick={() => onEliminar(ingreso.id)}
+>
         Eliminar
     </button>
 

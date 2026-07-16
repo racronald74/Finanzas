@@ -10,6 +10,7 @@ import {
 } from "../services/ingresoService";
 import TablaIngresos from "../components/TablaIngresos";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 
 // ============================
@@ -66,13 +67,15 @@ const handleEliminar = async (id) => {
         // Actualizar el listado
         cargarIngresos();
 
+        toast.success("Ingreso eliminado correctamente.");
+
     } catch (error) {
 
-        console.error("Error al eliminar el ingreso:", error);
+    console.error("Error al eliminar el ingreso:", error);
 
-        alert("No fue posible eliminar el ingreso.");
+    toast.error("No fue posible eliminar el ingreso.");
 
-    }
+}
 
 };
 
@@ -89,8 +92,11 @@ const handleEliminar = async (id) => {
 
             <h1>Gestión de Ingresos</h1>
 
-            <Link to="/ingresos/nuevo">
-    <button>Nuevo ingreso</button>
+<Link
+    to="/ingresos/nuevo"
+    className="btn-nuevo"
+>
+    Nuevo ingreso
 </Link>
 
 <br />
