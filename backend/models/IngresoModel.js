@@ -125,10 +125,30 @@ const actualizarIngreso = async (id, ingreso) => {
 
 };
 
+/**
+ * Elimina un ingreso por su identificador.
+ *
+ * @param {Number} id Identificador del ingreso.
+ * @returns {Promise<Object>}
+ */
+const eliminarIngreso = async (id) => {
+
+    const sql = `
+        DELETE FROM ingresos
+        WHERE id = ?
+    `;
+
+    const [resultado] = await connection.query(sql, [id]);
+
+    return resultado;
+
+};
+
 // EXPORTACIONES
 module.exports = {
     obtenerIngresos,
     obtenerIngresoPorId,
     crearIngreso,
-    actualizarIngreso
+    actualizarIngreso,
+    eliminarIngreso
 };

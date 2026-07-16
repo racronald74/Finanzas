@@ -26,5 +26,10 @@ router.post("/", IngresoController.crearIngreso);
  */
 router.put("/:id", IngresoController.actualizarIngreso);
 
+/**
+ * Elimina un ingreso existente.
+ */
+router.delete("/:id", IngresoController.eliminarIngreso);
+
 // EXPORTACIONES
 module.exports = router;

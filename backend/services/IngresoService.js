@@ -64,6 +64,22 @@ const actualizarIngreso = async (id, ingreso) => {
 };
 
 /**
+ * Elimina un ingreso existente.
+ *
+ * @param {Number} id Identificador del ingreso.
+ * @returns {Promise<Object>}
+ */
+const eliminarIngreso = async (id) => {
+
+    // Verificar que el ingreso exista
+    await obtenerIngresoPorId(id);
+
+    // Eliminar el ingreso
+    return await IngresoModel.eliminarIngreso(id);
+
+};
+
+/**
  * Obtiene un ingreso por su identificador.
  *
  * @param {Number} id Identificador del ingreso.
@@ -88,5 +104,6 @@ module.exports = {
     obtenerIngresos,
     obtenerIngresoPorId,
     crearIngreso,
-    actualizarIngreso
+    actualizarIngreso,
+    eliminarIngreso
 };

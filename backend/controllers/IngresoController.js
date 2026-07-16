@@ -211,11 +211,71 @@ const actualizarIngreso = async (req, res) => {
 
 };
 
+/**
+ * Elimina un ingreso existente.
+ *
+ * @param {Object} req Objeto de la petición HTTP.
+ * @param {Object} res Objeto de la respuesta HTTP.
+ */
+const eliminarIngreso = async (req, res) => {
+
+    try {
+
+        // Obtener el identificador enviado en la URL
+        const { id } = req.params;
+
+        // Eliminar el ingreso
+        await IngresoService.eliminarIngreso(id);
+
+        // Respuesta exitosa
+        Response.success(
+            res,
+            200,
+            "Ingreso eliminado correctamente"
+        );
+
+    } catch (error) {
+
+        // Error de validación
+        if (error instanceof ValidationError) {
+
+            return Response.error(
+                res,
+                error.statusCode,
+                error.message
+            );
+
+        }
+
+        // Recurso no encontrado
+        if (error instanceof NotFoundError) {
+
+            return Response.error(
+                res,
+                error.statusCode,
+                error.message
+            );
+
+        }
+
+        // Error interno
+        Response.error(
+            res,
+            500,
+            "Error interno del servidor",
+            error.message
+        );
+
+    }
+
+};
+
 // EXPORTACIONES
 
 module.exports = {
     obtenerIngresos,
     obtenerIngresoPorId,
     crearIngreso,
-    actualizarIngreso
+    actualizarIngreso,
+    eliminarIngreso
 };
