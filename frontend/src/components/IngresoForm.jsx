@@ -181,12 +181,24 @@ const IngresoForm = ({ ingreso }) => {
 
             <br />
 
-            <button
-    className="btn-guardar"
-    type="submit"
->
-                {ingreso ? "Actualizar" : "Guardar"}
-            </button>
+<div className="form-buttons">
+
+    <button
+        type="submit"
+        className="btn-guardar"
+    >
+        {ingreso ? "Actualizar" : "Guardar"}
+    </button>
+
+    <button
+        type="button"
+        className="btn-cancelar"
+        onClick={() => navigate("/ingresos")}
+    >
+        Cancelar
+    </button>
+
+</div>
 
         </form>
         

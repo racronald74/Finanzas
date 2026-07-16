@@ -1,0 +1,57 @@
+/* ===========================
+   DIALOG
+=========================== */
+
+.dialog-overlay {
+
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.45);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 9999;
+
+}
+
+.dialog {
+
+    width: 400px;
+    max-width: 90%;
+
+    background: white;
+
+    border-radius: 8px;
+
+    padding: 24px;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+
+}
+
+.dialog h2 {
+
+    margin-bottom: 15px;
+
+    color: #1f3c88;
+
+}
+
+.dialog p {
+
+    margin-bottom: 25px;
+
+    line-height: 1.5;
+
+}
+
+.dialog-buttons {
+
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+}

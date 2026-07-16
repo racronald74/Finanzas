@@ -71,3 +71,17 @@
     background-color: #157347;
 
 }
+
+/* ===========================
+   BOTONES DEL FORMULARIO
+=========================== */
+
+.form-buttons {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 20px;
+
+}

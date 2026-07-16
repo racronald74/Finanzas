@@ -11,6 +11,8 @@ import {
 import TablaIngresos from "../components/TablaIngresos";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import ConfirmDialog from "../ui/ConfirmDialog";
+import SummaryCard from "../components/SummaryCard";
 
 
 // ============================
@@ -22,8 +24,19 @@ import { toast } from "react-toastify";
  */
 const ListaIngresos = () => {
 
-    // Estado que almacena los ingresos
-    const [ingresos, setIngresos] = useState([]);
+// Estado que almacena los ingresos
+const [ingresos, setIngresos] = useState([]);
+
+// Controla la visibilidad del diálogo
+const [dialogOpen, setDialogOpen] = useState(false);
+
+// Guarda el id del ingreso a eliminar
+const [ingresoSeleccionado, setIngresoSeleccionado] = useState(null);
+
+/**
+ * Total de ingresos.
+ */
+const totalIngresos = ingresos.reduce((total, ingreso) => total + Number(ingreso.monto),0);
 
     /**
      * Obtiene los ingresos desde la API.
@@ -43,26 +56,35 @@ const ListaIngresos = () => {
         }
 
     };
+    
+
+/**
+ * Abre el cuadro de confirmación.
+ *
+ * @param {number} id
+ */
+const abrirDialogoEliminar = (id) => {
+
+    setIngresoSeleccionado(id);
+
+    setDialogOpen(true);
+
+};
 
     /**
  * Elimina un ingreso.
  *
  * @param {number} id Identificador del ingreso.
  */
-const handleEliminar = async (id) => {
+const handleEliminar = async () => {
 
-    const confirmar = window.confirm(
-        "¿Está seguro de eliminar este ingreso?"
-    );
-
-    if (!confirmar) {
-        return;
-    }
+// Cerrar el diálogo
+setDialogOpen(false);
 
     try {
 
         // Eliminar el ingreso
-        await eliminarIngreso(id);
+        await eliminarIngreso(ingresoSeleccionado);
 
         // Actualizar el listado
         cargarIngresos();
@@ -71,11 +93,14 @@ const handleEliminar = async (id) => {
 
     } catch (error) {
 
-    console.error("Error al eliminar el ingreso:", error);
+    console.error(error);
 
     toast.error("No fue posible eliminar el ingreso.");
 
 }
+
+// Limpiar el ingreso seleccionado
+setIngresoSeleccionado(null);
 
 };
 
@@ -87,27 +112,52 @@ const handleEliminar = async (id) => {
     }, []);
 
     return (
+        <>
 
         <div>
 
-            <h1>Gestión de Ingresos</h1>
+            <div className="page-header">
 
-<Link
-    to="/ingresos/nuevo"
-    className="btn-nuevo"
->
-    Nuevo ingreso
-</Link>
+    <div>
 
-<br />
+        <h1>Gestión de Ingresos</h1>
+
+        <br />
+
+        <Link
+            to="/ingresos/nuevo"
+            className="btn-nuevo"
+        >
+            Nuevo ingreso
+        </Link>
+
+    </div>
+
+    <SummaryCard
+        titulo="Total ingresos"
+        valor={totalIngresos}
+    />
+
+</div>
+
 <br />
 
             <TablaIngresos
     ingresos={ingresos}
-    onEliminar={handleEliminar}
+    onEliminar={abrirDialogoEliminar}
 />
 
         </div>
+
+        <ConfirmDialog
+            open={dialogOpen}
+            title="Confirmar eliminación"
+            message="¿Está seguro de eliminar este ingreso?"
+            onConfirm={handleEliminar}
+            onCancel={() => setDialogOpen(false)}
+        />
+
+        </>
 
     );
 

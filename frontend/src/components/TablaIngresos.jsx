@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import formatoMoneda from "../utils/formatoMoneda";
 
 // ============================
 // COMPONENTE TABLA DE INGRESOS
@@ -46,8 +47,8 @@ const TablaIngresos = ({ ingresos, onEliminar }) => {
                             <td>{ingreso.id}</td>
                             <td>{ingreso.fecha ? ingreso.fecha.substring(0, 10) : ""}</td>
                             <td>{ingreso.descripcion}</td>
-                            <td>{ingreso.monto}</td>
-                            <td>{ingreso.categoria}</td>
+                            <td>{formatoMoneda(ingreso.monto)}</td>
+                            <td><span className="badge-categoria">{ingreso.categoria}</span></td>
 
 <td>
 

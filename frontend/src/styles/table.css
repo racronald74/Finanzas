@@ -33,3 +33,25 @@ tbody tr:hover {
 th {
     font-weight: bold;
 }
+
+/* ===========================
+   BADGE CATEGORÍA
+=========================== */
+
+.badge-categoria {
+
+    display: inline-block;
+
+    background-color: #e8f0fe;
+    color: #1f3c88;
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    text-transform: capitalize;
+
+}

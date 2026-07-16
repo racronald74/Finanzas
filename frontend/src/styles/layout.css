@@ -5,3 +5,21 @@
 main {
     min-height: calc(100vh - 140px);
 }
+
+/* ===========================
+   ENCABEZADO DE PÁGINAS
+=========================== */
+
+.page-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    margin-bottom: 30px;
+
+    gap: 20px;
+
+}

@@ -10,6 +10,8 @@ import "./styles/form.css";
 import "./styles/buttons.css";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
+import "./styles/dialog.css";
+import "./styles/summary-card.css";
 
 import App from "./App";
 

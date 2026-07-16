@@ -79,3 +79,29 @@
     background-color: #b3261e;
 
 }
+
+/* ===========================
+   BOTÓN CANCELAR
+=========================== */
+
+.btn-cancelar {
+
+    background-color: #6c757d;
+    color: white;
+
+    padding: 8px 14px;
+
+    border: none;
+    border-radius: 4px;
+
+    cursor: pointer;
+
+    min-width: 100px;
+
+}
+
+.btn-cancelar:hover {
+
+    background-color: #5a6268;
+
+}
